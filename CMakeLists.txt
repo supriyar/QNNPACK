@@ -134,8 +134,10 @@ SET(QNNPACK_INIT_SRCS
   src/average-pooling.c
   src/channel-shuffle.c
   src/clamp.c
+  src/conv-prepack.cc
   src/convolution.c
   src/deconvolution.c
+  src/fc-prepack.cc
   src/fully-connected.c
   src/global-average-pooling.c
   src/leaky-relu.c
@@ -145,6 +147,8 @@ SET(QNNPACK_INIT_SRCS
   src/operator-delete.c)
 
 SET(QNNPACK_EXEC_SRCS
+  src/conv-run.cc
+  src/fc-run.cc
   src/indirection.c
   src/operator-run.c)
 
@@ -239,6 +243,7 @@ ELSE()
   MESSAGE(FATAL_ERROR "Unsupported QNNPACK library type \"${QNNPACK_LIBRARY_TYPE}\". Must be \"static\", \"shared\", or \"default\"")
 ENDIF()
 SET_TARGET_PROPERTIES(qnnpack PROPERTIES
+  CXX_STANDARD 11
   C_STANDARD 99
   C_EXTENSIONS YES)
 IF(CMAKE_SYSTEM_PROCESSOR MATCHES "^armv[5-8]" OR IOS_ARCH MATCHES "^armv7")
